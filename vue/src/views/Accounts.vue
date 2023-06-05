@@ -118,7 +118,7 @@
 
   DataTable.use(DataTablesCore);
 
-  const api_base_url = "https://api.uptrendcredit.local";
+  const api_base_url = import.meta.env.VITE_API_BASE_URL;
   let is_connected = ref();
   let is_identity = ref();
   let owners = ref([]);
@@ -138,7 +138,6 @@
 
   function checkConnected() {
     const cb = fetchConnectedBanks();
-    console.log('ay', import.meta.env.VITE_API_BASE_URL);
     // is_connected.value = false;
     // 'Access-Control-Allow-Origin' '*'
   }
