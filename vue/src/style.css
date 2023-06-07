@@ -3,6 +3,77 @@ body {
   height: 100%;
 }
 
+:root {
+  --main-hex: #130E58;
+  --font-prim-color: #1E1852;
+  --light-main-hex: #362f8b;
+  --light-main-rgb: 54,47,139;
+
+  --bs-accordion-btn-icon: url("");
+  --bs-accordion-btn-active-icon: url(""); 
+}
+
+.bg-main {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--light-main-rgb),var(--bs-bg-opacity))!important;
+}
+
+.no-border-radius {
+  border-radius: unset!important;
+}
+
+.btn-custom {
+  --bs-btn-font-weight: 400;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--main-hex);
+  --bs-btn-border-color: var(--main-hex);
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: var(--light-main-hex);
+  --bs-btn-hover-border-color: var(--light-main-hex);
+  --bs-btn-focus-shadow-rgb: var(--light-main-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: var(--main-hex);
+  --bs-btn-active-border-color: var(--main-hex);
+}
+
+/* Navbar START */
+/* .navbar-header {
+  width: 19%;
+  max-width: 100%;
+  
+} */
+.top-bar {
+  background: linear-gradient(to right,var(--main-hex) 0,var(--light-main-hex) 100%);
+}
+.top-bar a {
+  color: #fff !important;
+}
+.top-bar .navbar .navbar-header .navbar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  margin: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+/* Navbar END */
+
+/* PAGE START */
+.page-container {
+  position: relative;
+  margin: 0 auto;
+}
+/* PAGE END */
+
+/* Accounts Page START */
+.accounts-container .card .card-actions a {
+  text-decoration: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+/* Accounts Page END */
+
 .form-signin {
   max-width: 330px;
   padding: 1rem;

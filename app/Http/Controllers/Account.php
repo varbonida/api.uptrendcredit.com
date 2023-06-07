@@ -77,5 +77,53 @@ class Account extends Controller
 
 		return $arr_institutions;
 	}
+	
+	public function getConnectedBankByAccountID(Request $request) {
+		$bank_name = $request->input('bank_name');
+		$account_id = $request->input('account_id');
+		$conditions = [
+			'user_id'=> '1',
+			'bank_name'=> $bank_name,
+			'account_id'=> $account_id,
+		];
+		$account = ConnectedAccount::where($conditions)->get();
+		$arr_account = json_decode($account, true);
+
+		print_r($arr_account);
+
+		return $arr_account;
+		// $ids = array_map(function ($acct) {
+		// 	return $acct['connected_institution_id'];
+		// }, $arr_accounts);
+		// $uniq_ids = array_unique($ids);
+
+		// $institutions = ConnectedInstitution::whereIn('id', $uniq_ids)->get();
+		// $arr_institutions = json_decode($institutions, true);
+
+		// $accounts_by_institution = [];
+
+		// foreach ($arr_accounts as $account) {
+		// 	$institution_id = $account['connected_institution_id'];
+	
+		// 	if (!isset($accounts_by_institution[$institution_id])) {
+		// 		$accounts_by_institution[$institution_id] = [];
+		// 	}
+	
+		// 	$accounts_by_institution[$institution_id][] = $account;
+		// }
+
+		// foreach ($arr_institutions as &$institution) {
+		// 	$institution_id = $institution['id'];
+	
+		// 	if (isset($accounts_by_institution[$institution_id])) {
+		// 		$institution['accounts'] = $accounts_by_institution[$institution_id];
+		// 	} else {
+		// 		$institution['accounts'] = [];
+		// 	}
+		// }
+
+		// return $arr_institutions;
+		
+	}
 
 }

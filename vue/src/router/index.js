@@ -4,6 +4,7 @@ import AddAccount from '../views/AddAccount.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Transactions from '../views/Transactions.vue';
 import Accounts from '../views/Accounts.vue';
+import AccountDetails from '../views/AccountDetails.vue';
 
 import Layout from '../components/Layout.vue';
 
@@ -16,6 +17,7 @@ const routes = [
       { path: '/dashboard', name: 'Dashboard', component: Dashboard },
       { path: '/transactions', name: 'Transactions', component: Transactions },
       { path: '/accounts', name: 'Accounts', component: Accounts },
+      { path: '/accounts/:bank_name/:account_id', name: 'AccountDetails', component: AccountDetails, props: true },
     ]
   },
   {

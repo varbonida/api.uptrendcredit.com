@@ -1,5 +1,55 @@
 <template>
-  <h1>Accounts</h1>
+  <PageBreadcrumb pageTitle="Accounts" />
+
+  <div v-if="is_connected">
+    <!-- <div class="d-flex border-bottom title-part-padding px-0 my-4 align-items-center"> -->
+    <div class="d-flex flex-column flex-md-row py-4 my-4 align-items-center justify-content-left border-bottom title-part-padding">
+      <div>
+        <h4 class="mb-0">{{ institutions.length }} Bank{{ institutions.length > 1 ? 's':'' }} Linked</h4>
+      </div>
+      <button class="btn btn-custom py-2 ms-auto no-border-radius" type="submit" @click="connectAccount">Add Another Bank</button>
+    </div>
+    <div class="accounts-container">
+      <div v-for="(institution, ind) in institutions" class="row">
+        <div class="col-md-6">
+          <div class="card no-border-radius">
+            <div class="card-header bg-main d-flex align-items-center no-border-radius py-3">
+              <h4 class="card-title text-white">{{ institution.institution_name }}</h4>
+              <div class="card-actions ms-auto d-flex button-group">
+                <a class="link text-white d-flex align-items-center me-3" @click="accountCollapsed"
+                  data-bs-toggle="collapse" 
+                  :data-bs-target="`#panelsStayOpen-collapse-${ind}`" 
+                  aria-expanded="true" 
+                  :aria-controls="`panelsStayOpen-collapse-${ind}`">
+                  <i class="fa-solid fa-minus"></i>
+                </a>
+                <a class=" mb-0 link d-flex text-white align-items-center pe-0" data-action="close" data-bs-toggle="tooltip" data-bs-title="Remove Bank">
+                  <i class="fa-solid fa-xmark"></i>
+                </a>
+              </div>
+            </div>
+            <div class="card-body px-0 accordion-collapse collapse show"
+              :id="`panelsStayOpen-collapse-${ind}`" 
+              :aria-labelledby="`panelsStayOpen-heading-${ind}`">
+              <div class="list-group list-group-flush">
+                <a v-for="account in institution.accounts" href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                  <img src="src/assets/Uptrend-Credit_landscape_white.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                  <div class="d-flex gap-2 w-100 justify-content-between">
+                    <div @click="getIdentity(account.account_id, institution.access_token)" class=" flex-fill">
+                      <h6 class="mb-0">{{ account.name }}</h6>
+                    </div>
+                    <router-link :to="`/accounts/${institution.institution_name}/${account.account_id}`" class="wakaka">Go to Home</router-link>
+                    <button type="button" class="btn btn-primary btn-sm" @click="getTransactionThisMonth(account.account_id, institution.access_token)">Monthly Transactions</button>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div v-if="is_connected">
     <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-start justify-content-left">
       <div>
@@ -21,7 +71,7 @@
             <div class="accordion-body">
               <div class="list-group">
                 <a v-for="account in institution.accounts" href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                  <img src="https://www.staging13.uptrendcredit.com/wp-content/uploads/2022/04/Uptrend-Credit_landscape-e1650562398898.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                  <img src="/src/assets/Uptrend-Credit_landscape_white.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
                   <div class="d-flex gap-2 w-100 justify-content-between">
                     <div @click="getIdentity(account.account_id, institution.access_token)" class=" flex-fill">
                       <h6 class="mb-0">{{ account.name }}</h6>
@@ -112,9 +162,13 @@
 
 <script setup>
   import { ref, onMounted } from 'vue';
+  import PageBreadcrumb from '../components/_PageBreadcrumb.vue';
   import moment from 'moment';
   import DataTable from 'datatables.net-vue3';
   import DataTablesCore from 'datatables.net';
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
 
   DataTable.use(DataTablesCore);
 
@@ -126,7 +180,7 @@
   let linkToken = ref(null);
   let institutions = ref([]);
   const transaction_data = ref([]);
-  
+
   const transaction_columns = [
     { data: 'date', title: 'Date', },
     { data: 'name', title: 'Name', },
@@ -135,6 +189,22 @@
   ];
 
   onMounted(checkConnected);
+
+  function accountCollapsed(e) {
+    let is_collapsed = false;
+    is_collapsed = !is_collapsed;
+    if(is_collapsed) {
+      e.currentTarget.querySelector('i').classList.remove('fa-minus');
+      e.currentTarget.querySelector('i').classList.add('fa-plus');
+    } else {
+      e.currentTarget.querySelector('i').classList.remove('fa-plus');
+      e.currentTarget.querySelector('i').classList.add('fa-minus');
+    }
+  }
+
+  function goToAccountDetails() {
+    router.push('/subpage');
+  }
 
   function checkConnected() {
     const cb = fetchConnectedBanks();

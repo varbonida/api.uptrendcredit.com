@@ -31,3 +31,4 @@ Route::get('/plaid/get-account-balance', [PlaidApiController::class, 'getAccount
 
 
 Route::get('/up/get-connected-banks', [Account::class, 'getConnectedBanks']);
+Route::post('/up/get-connected-account', [Account::class, 'getConnectedBankByAccountID']);

@@ -1,11 +1,12 @@
 <template>
-  <h1>Dashboard</h1>
+  <PageBreadcrumb pageTitle="Dashboard" />
 </template>
 
 <style scoped>
 
 </style>
 
-<script>
+<script setup>  
+  import PageBreadcrumb from '../components/_PageBreadcrumb.vue';
 
 </script>
