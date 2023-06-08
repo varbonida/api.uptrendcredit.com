@@ -12,7 +12,7 @@
 </template>
 
 <style>
-  @import 'datatables.net-dt';
+  /* @import 'datatables.net-dt'; */
 </style>
 
 <script setup>

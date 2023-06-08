@@ -10,4 +10,8 @@ class ConnectedInstitution extends Model
 	use HasFactory;
 
 	protected $fillable = ['user_id', 'access_token', 'item_id', 'institution_id', 'institution_name'];
+
+	public function connected_accounts() {
+		return $this->hasMany('App\Models\ConnectedAccount');
+	}
 }

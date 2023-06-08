@@ -14,16 +14,12 @@ class PlaidApiController extends Controller {
   private $secret;
   private $url_base;
 	private $environment;
-	private $access_token;
 
   public function __construct() {
     $this->client_id = env('PLAID_CLIENT_ID');
     $this->secret = env('PLAID_SECRET');;
 		$this->environment = env('PLAID_ENVIRONMENT');
     $this->url_base = 'https://'.$this->environment.'.plaid.com'; //($this->environment == 'sandbox') ? 'https://sandbox.plaid.com' : 'https://production.plaid.com';
-		// $model = new AccountToken();
-		// $this->access_token = $model::where('user_id', '1')->first()->access_token;
-		$this->access_token = 'access-sandbox-a646e96d-9e28-44d8-9bee-165104571db5';
 	}
 	
 	public function createLinkToken(Request $request) {

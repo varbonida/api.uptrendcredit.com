@@ -11,6 +11,9 @@
   "dependencies": {
     "@popperjs/core": "^2.11.7",
     "bootstrap": "^5.2.3",
+    "datatables.net-bs5": "^1.13.4",
+    "datatables.net-responsive-bs5": "^2.4.1",
+    "datatables.net-select-bs5": "^1.6.2",
     "datatables.net-vue3": "^2.1.0",
     "moment": "^2.29.4",
     "vue": "^3.2.47",

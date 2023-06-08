@@ -17,7 +17,7 @@ const routes = [
       { path: '/dashboard', name: 'Dashboard', component: Dashboard },
       { path: '/transactions', name: 'Transactions', component: Transactions },
       { path: '/accounts', name: 'Accounts', component: Accounts },
-      { path: '/accounts/:bank_name/:account_id', name: 'AccountDetails', component: AccountDetails, props: true },
+      { path: '/accounts/:bank_id/:account_id', name: 'AccountDetails', component: AccountDetails, props: true },
     ]
   },
   {
